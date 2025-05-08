@@ -1,0 +1,61 @@
+# Артефакты компиляции
+*.o
+*.obj
+*.lo
+*.lai
+*.la
+*.al
+*.pch
+
+# Исполняемые файлы
+*.exe
+*.out
+*.app
+*.elf
+*.exe~
+
+# Папки сборки
+build/
+bin/
+obj/
+Debug/
+Release/
+
+# CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+install_manifest.txt
+Testing/
+
+# IDE-специфичные
+# Visual Studio
+*.vcxproj.*
+*.sln
+*.vcproj.*
+*.user
+*.ncb
+*.sdf
+*.opensdf
+*.vcxproj.filters
+
+# CLion
+.idea/
+*.iml
+cmake-build-*/
+
+# Xcode
+*.xcworkspace
+*.xcuserdata/
+*.xcodeproj/project.xcworkspace/
+
+# Qt Creator
+*.pro.user*
+*.qbs.user*
+
+# Mac OS
+.DS_Store
+
+# Linux
+*~
