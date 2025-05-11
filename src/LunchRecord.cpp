@@ -2,7 +2,7 @@
 // Created by Куимов Михаил on 08.05.2025.
 //
 
-#include "../include/Obeder/Models.h"
+#include "../include/Obeder/LunchRecord.h"
 
 LunchRecord::LunchRecord(const std::time_t ts, const std::string &user_id, const int amount)
   : record(ts, user_id, amount) {}

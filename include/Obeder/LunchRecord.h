@@ -6,16 +6,10 @@
 #define MODELS_H
 #include <ctime>
 #include <string>
+#include "Parser.h"
 
 
 class LunchRecord {
-  struct Record {
-    std::time_t ts;
-    std::string user_id;
-    int amount;
-  };
-  Record record;
-
   public:
   LunchRecord(std::time_t ts, const std::string &user_id, int amount);
   ~LunchRecord() = default;

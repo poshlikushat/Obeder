@@ -7,10 +7,10 @@ add_library( new_target
         include/Obeder/Calculator.h
         src/Calculator.cpp
         include/Obeder/Parser.h
-        include/Obeder/Models.h
+        include/Obeder/LunchRecord.h
         src/Parser.cpp
         src/Ledger.cpp
         include/Obeder/Ledger.h
-        src/Models.cpp
+        src/LunchRecord.cpp
     )
-add_executable(Obeder src/main.cpp)
+add_executable(Obeder src/main.cpp src/Parser.cpp)
