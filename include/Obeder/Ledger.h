@@ -4,13 +4,21 @@
 
 #ifndef LEDGER_H
 #define LEDGER_H
-
+#include <string>
+#include <vector>
+#include <unordered_map>
+#include "Parser.h"
 
 
 class Ledger {
+  std::vector<Lunch> records;
+public:
+  void addRecords(const std::vector<Lunch>& recs);
 
+  void loadFromFile(const std::string& filename);
+
+  [[nodiscard]] std::unordered_map<std::string, int> getBalance(std::time_t start, std::time_t end) const;
 };
-
 
 
 #endif //LEDGER_H
