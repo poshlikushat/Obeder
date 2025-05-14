@@ -3,8 +3,8 @@
 #define PARSER_H
 
 #include <string>
-#include <ctime>
 #include <vector>
+#include <ctime>
 
 struct Lunch {
   std::time_t ts;

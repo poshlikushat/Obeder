@@ -4,14 +4,14 @@
 
 #ifndef MODELS_H
 #define MODELS_H
-#include <ctime>
 #include <string>
 #include "Parser.h"
 
 
 class LunchRecord {
+  Lunch record;
   public:
-  LunchRecord(std::time_t ts, const std::string &user_id, int amount);
+  LunchRecord() = delete;
   ~LunchRecord() = default;
   LunchRecord operator=(const LunchRecord& other) = delete;
   LunchRecord(const LunchRecord& other) = delete;
