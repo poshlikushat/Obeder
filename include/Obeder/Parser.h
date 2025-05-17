@@ -17,9 +17,6 @@ public:
   static std::vector<Lunch> parse(const std::string& filename);
 
   Parser() = delete;
-  ~Parser() = delete;
-  Parser(const Parser& other) = delete;
-  Parser& operator=(const Parser& other) = delete;
 };
 
 #endif //PARSER_H
