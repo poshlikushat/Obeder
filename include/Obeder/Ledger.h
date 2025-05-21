@@ -13,7 +13,7 @@
 class Ledger {
   std::vector<Lunch> records;
 public:
-  void addRecords(const std::vector<Lunch>& recs);
+  void addRecord(const Lunch& lunch);
   void loadFromFile(const std::string& filename);
   [[nodiscard]] std::unordered_map<std::string, int> getBalance(std::time_t start, std::time_t end) const;
 };

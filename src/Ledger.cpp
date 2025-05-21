@@ -5,13 +5,13 @@
 #include "../include/Obeder/Ledger.h"
 #include "../include/Obeder/Parser.h"
 
-void Ledger::addRecords(const std::vector<Lunch>& recs) {
-  records.insert(records.end(), recs.begin(), recs.end());
+void Ledger::addRecord(const Lunch& lunch) {
+  records.push_back(lunch);
 }
 
 void Ledger::loadFromFile(const std::string& filename) {
   const auto lunches = Parser::parse(filename);
-  addRecords(lunches);
+  records.insert(records.end(), lunches.begin(), lunches.end());
 }
 
 std::unordered_map<std::string, int> Ledger::getBalance(const std::time_t start, const std::time_t end) const {
