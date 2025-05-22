@@ -9,7 +9,7 @@
 struct Lunch {
   std::time_t ts;
   std::string user_id;
-  int amount;
+  double amount;
 };
 
 class Parser {

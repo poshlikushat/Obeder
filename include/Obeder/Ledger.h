@@ -15,7 +15,7 @@ class Ledger {
 public:
   void addRecord(const Lunch& lunch);
   void loadFromFile(const std::string& filename);
-  [[nodiscard]] std::unordered_map<std::string, int> getBalance(std::time_t start, std::time_t end) const;
+  [[nodiscard]] std::unordered_map<std::string, double> getBalance(std::time_t start, std::time_t end) const;
 };
 
 

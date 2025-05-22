@@ -4,32 +4,41 @@
 
 #include "../include/Obeder/Calculator.h"
 #include "../include/Obeder/Ledger.h"
+#include <map>
 
-std::vector<Debt> Calculator::settle(const std::unordered_map<std::string,int>& balances) {
-  std::vector<std::pair<std::string, int>> debtors;
-  std::vector<std::pair<std::string, int>> creditors;
+std::vector<Debt> Calculator::settle(const std::unordered_map<std::string, double>& balances) {
 
-  for (auto it : balances) {
-    if (it.second < 0) debtors.emplace_back(it);
-    else if (it.second > 0) creditors.emplace_back(it);
+  std::multimap<double, std::string> bal_mp;
+  for (auto& [user, bal] : balances) {
+    if (bal != 0)
+      bal_mp.emplace(bal, user);
   }
 
   std::vector<Debt> result;
-  result.reserve(std::max(debtors.size(), creditors.size()));
+  result.reserve(balances.size());
 
-  size_t i = 0, j = 0;
-  while (i < debtors.size() && j < creditors.size()) {
-    auto& [debUser, debSum] = debtors[i];
-    auto& [credUser, credSum] = creditors[j];
+  while (!bal_mp.empty()) {
 
-    const int transfer = std::min(credSum, -debSum);
-    result.push_back(Debt{debUser, credUser, transfer});
+    const auto low = bal_mp.begin();
+    const auto high = std::prev(bal_mp.end());
 
-    debSum += transfer;
-    credSum -= transfer;
+    if (low->first >= 0 || high->first <= 0) {
+      break;
+    }
 
-    if (debSum == 0) ++i;
-    if (credSum == 0) ++j;
+    const auto transfer = std::min(-low->first, high->first);
+    const std::string debtor = low->second;
+    const std::string creditor = high->second;
+    result.push_back(Debt{debtor, creditor, transfer});
+
+    auto newLow = low->first + transfer;
+    auto newHigh = high->first - transfer;
+
+    bal_mp.erase(low);
+    bal_mp.erase(high);
+
+    if (newLow  != 0) bal_mp.emplace(newLow,  debtor);
+    if (newHigh != 0) bal_mp.emplace(newHigh, creditor);
   }
   return result;
 }

@@ -14,8 +14,8 @@ void Ledger::loadFromFile(const std::string& filename) {
   records.insert(records.end(), lunches.begin(), lunches.end());
 }
 
-std::unordered_map<std::string, int> Ledger::getBalance(const std::time_t start, const std::time_t end) const {
-  std::unordered_map<std::string, int> balance;
+std::unordered_map<std::string, double> Ledger::getBalance(const std::time_t start, const std::time_t end) const {
+  std::unordered_map<std::string, double> balance;
   balance.reserve(records.size());
   for (const auto&[ts, user_id, amount] : records) {
     if (ts >= start && ts <= end) {
