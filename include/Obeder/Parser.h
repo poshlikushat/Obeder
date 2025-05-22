@@ -12,7 +12,7 @@ struct Lunch {
   double amount;
 };
 
-class Parser {
+class Parser final {
 public:
   static std::vector<Lunch> parse(const std::string& filename);
 

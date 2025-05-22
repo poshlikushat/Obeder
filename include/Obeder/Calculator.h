@@ -14,7 +14,7 @@ struct Debt {
   double amount;
 };
 
-class Calculator {
+class Calculator final {
 public:
   static std::vector<Debt> settle(const std::unordered_map<std::string, double>& balances);
 };

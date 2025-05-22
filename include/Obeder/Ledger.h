@@ -10,7 +10,7 @@
 #include "Parser.h"
 
 
-class Ledger {
+class Ledger final {
   std::vector<Lunch> records;
 public:
   void addRecord(const Lunch& lunch);
