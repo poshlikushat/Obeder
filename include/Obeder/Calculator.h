@@ -19,6 +19,8 @@ class Calculator final {
   static void calculate(std::vector<Debt>& result, std::multimap<double, std::string> bal_mp);
 public:
   static std::vector<Debt> settle(const std::unordered_map<std::string, double>& balances);
+  static void printInfo(std::ostream& out, const std::vector<Debt>& debts);
+  Calculator() = delete;
 };
 
 

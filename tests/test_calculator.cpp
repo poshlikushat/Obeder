@@ -1,6 +1,8 @@
 // tests/test_calculator.cpp
 #include <gtest/gtest.h>
 #include "../include/Obeder/Calculator.h"
+#include <cstdio>
+#include <fstream>
 
 TEST(CalculatorTest, SimplePair) {
   std::unordered_map<std::string, double> balances{
@@ -48,3 +50,59 @@ TEST(CalculatorTest, NoDebtsWhenBalanced) {
   EXPECT_EQ(debts[0].to,   "x");
   EXPECT_DOUBLE_EQ(debts[0].amount, 2.0);
 }
+
+TEST(CalculatorPrintInfo, CapturesStdout) {
+  const std::vector<Debt> debts = {
+    {"alice", "bob", 12.5},
+    {"john", "kate", 3.0}
+  };
+  // Начинаем перехват stdout
+  testing::internal::CaptureStdout();
+
+  // Вызываем статический метод прямо через класс
+  Calculator::printInfo(std::cout, debts);
+
+  // Получаем то, что «упало» в stdout
+  const std::string output = testing::internal::GetCapturedStdout();
+
+  // Ожидаемый результат
+  std::string expected;
+  expected += "alice -> bob : 12.5\n";
+  expected += "john -> kate : 3\n";
+
+  EXPECT_EQ(output, expected);
+}
+
+TEST(CalculatorPrintInfo, WritesToTempFile) {
+  std::vector<Debt> debts = {
+    {"alice", "bob",  12.5},
+    {"john",  "kate", 3.0}
+  };
+
+  char temp_name[L_tmpnam];
+  std::tmpnam(temp_name);
+
+  {
+    std::ofstream ofs(temp_name);
+    ASSERT_TRUE(ofs.is_open()) << "Не удалось создать файл: " << temp_name;
+    Calculator::printInfo(ofs, debts);
+  }
+
+  // Читаем обратно
+  std::ifstream ifs(temp_name);
+  ASSERT_TRUE(ifs.is_open()) << "Не удалось открыть файл для чтения: " << temp_name;
+  std::string content(
+      (std::istreambuf_iterator<char>(ifs)),
+      std::istreambuf_iterator<char>()
+  );
+  ifs.close();
+
+  std::remove(temp_name);
+
+  std::string expected;
+  expected += "alice -> bob : 12.5\n";
+  expected += "john -> kate : 3\n";
+
+  EXPECT_EQ(content, expected);
+}
+

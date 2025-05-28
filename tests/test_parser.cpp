@@ -1,8 +1,8 @@
 #include <gtest/gtest.h>
 #include <sstream>
 #include <fstream>
-#include <cstdio>      // for std::remove
-#include "../include/Obeder/Parser.h"
+#include <cstdio>
+#include "../include/Obeder/IOHandler.h"
 
 TEST(ParserTest, ParsesFromStringStream) {
   const std::string input =
@@ -10,7 +10,7 @@ TEST(ParserTest, ParsesFromStringStream) {
       "1623078000 user2 15.0\n"
       "1623081600 user3 20.75";
   std::istringstream iss(input);
-  const auto lunches = Parser::parse(iss);
+  const auto lunches = IOHandler::parse(iss);
 
   ASSERT_EQ(lunches.size(), 3);
   EXPECT_EQ(lunches[0].ts, 1623074400);
@@ -22,7 +22,6 @@ TEST(ParserTest, ParsesFromStringStream) {
 
 TEST(ParserTest, ParsesFromFile) {
   auto filename = "test_data.txt";
-  // Создаём временный файл
   std::ofstream ofs(filename);
   ASSERT_TRUE(ofs.is_open());
   ofs << "1000000000 alice 5.0\n";
@@ -31,10 +30,9 @@ TEST(ParserTest, ParsesFromFile) {
 
   std::ifstream ifs(filename);
   ASSERT_TRUE(ifs.is_open());
-  auto lunches = Parser::parse(ifs);
+  auto lunches = IOHandler::parse(ifs);
   ifs.close();
 
-  // Удаляем временный файл
   std::remove(filename);
 
   ASSERT_EQ(lunches.size(), 2);
@@ -45,7 +43,7 @@ TEST(ParserTest, ParsesFromFile) {
 TEST(ParserTest, ThrowsOnInvalidLine) {
   const std::string badInput = "not_a_timestamp baddata 123";
   std::istringstream iss(badInput);
-  EXPECT_THROW(Parser::parse(iss), std::runtime_error);
+  EXPECT_THROW(IOHandler::parse(iss), std::runtime_error);
 }
 
 int main(int argc, char **argv) {

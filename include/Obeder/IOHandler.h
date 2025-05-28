@@ -1,4 +1,4 @@
-// Parser.h
+// IOHandler.h
 #ifndef PARSER_H
 #define PARSER_H
 
@@ -12,11 +12,11 @@ struct Lunch {
   double amount;
 };
 
-class Parser final {
+class IOHandler final {
 public:
   static std::vector<Lunch> parse(std::istream& in);
 
-  Parser() = delete;
+  IOHandler() = delete;
 };
 
 #endif //PARSER_H

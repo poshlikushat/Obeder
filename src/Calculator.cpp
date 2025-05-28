@@ -5,6 +5,19 @@
 #include "../include/Obeder/Calculator.h"
 #include "../include/Obeder/Ledger.h"
 #include <map>
+#include <ostream>
+
+
+void Calculator::printInfo(std::ostream& out, const std::vector<Debt>& debts) {
+  for (const auto&[from, to, amount] : debts) {
+    out << from
+        << " -> "
+        << to 
+        << " : "
+        << amount
+        << '\n';
+  }
+}
 
 void Calculator::calculate(std::vector<Debt>& result, std::multimap<double, std::string> bal_mp) {
   while (!bal_mp.empty()) {
@@ -34,7 +47,6 @@ void Calculator::calculate(std::vector<Debt>& result, std::multimap<double, std:
 
 
 std::vector<Debt> Calculator::settle(const std::unordered_map<std::string, double>& balances) {
-
   std::multimap<double, std::string> bal_mp;
   for (auto& [user, bal] : balances) {
     if (bal != 0)

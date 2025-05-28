@@ -2,12 +2,12 @@
 // Created by Куимов Михаил on 08.05.2025.
 //
 
-#include "../include/Obeder/Parser.h"
+#include "../include/Obeder/IOHandler.h"
 
 #include <fstream>
 #include <sstream>
 
-std::vector<Lunch> Parser::parse(std::istream& in) {
+std::vector<Lunch> IOHandler::parse(std::istream& in) {
   std::vector<Lunch> lunches;
   std::string line;
 
