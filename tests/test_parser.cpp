@@ -4,24 +4,13 @@
 #include <cstdio>      // for std::remove
 #include "../include/Obeder/Parser.h"
 
-// Удобный алиас
-using Obeder::Parser;
-
-// Структура Lunch должна быть определена в ../include/Obeder/Ledger.h
-struct Lunch {
-  std::time_t ts;
-  std::string user_id;
-  double amount;
-};
-
 TEST(ParserTest, ParsesFromStringStream) {
-  std::string input =
+  const std::string input =
       "1623074400 user1 12.5\n"
       "1623078000 user2 15.0\n"
-      "   \n"              // пустая строка пропускается
       "1623081600 user3 20.75";
   std::istringstream iss(input);
-  auto lunches = Parser::parse(iss);
+  const auto lunches = Parser::parse(iss);
 
   ASSERT_EQ(lunches.size(), 3);
   EXPECT_EQ(lunches[0].ts, 1623074400);
@@ -32,7 +21,7 @@ TEST(ParserTest, ParsesFromStringStream) {
 }
 
 TEST(ParserTest, ParsesFromFile) {
-  const char* filename = "test_data.txt";
+  auto filename = "test_data.txt";
   // Создаём временный файл
   std::ofstream ofs(filename);
   ASSERT_TRUE(ofs.is_open());
@@ -54,7 +43,7 @@ TEST(ParserTest, ParsesFromFile) {
 }
 
 TEST(ParserTest, ThrowsOnInvalidLine) {
-  std::string badInput = "not_a_timestamp baddata 123";
+  const std::string badInput = "not_a_timestamp baddata 123";
   std::istringstream iss(badInput);
   EXPECT_THROW(Parser::parse(iss), std::runtime_error);
 }

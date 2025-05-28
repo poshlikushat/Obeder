@@ -2,12 +2,9 @@
 #include <gtest/gtest.h>
 #include "../include/Obeder/Ledger.h"
 
-using Obeder::Ledger;
-using Obeder::Lunch;
-
 TEST(LedgerTest, SingleRecord) {
   Ledger ledger;
-  Lunch l1{1000, "alice", 12.5};
+  const Lunch l1{1000, "alice", 12.5};
   ledger.addRecord(l1);
 
   auto bal = ledger.getBalance(0, 2000);

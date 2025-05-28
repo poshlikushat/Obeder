@@ -2,16 +2,13 @@
 #include <gtest/gtest.h>
 #include "../include/Obeder/Calculator.h"
 
-using Obeder::Calculator;
-using Obeder::Debt;
-
 TEST(CalculatorTest, SimplePair) {
   std::unordered_map<std::string, double> balances{
           {"debtor", -5.0},
           {"creditor", 5.0}
   };
 
-  auto debts = Calculator::settle(balances);
+  const auto debts = Calculator::settle(balances);
   ASSERT_EQ(debts.size(), 1u);
   EXPECT_EQ(debts[0].from, "debtor");
   EXPECT_EQ(debts[0].to,   "creditor");
@@ -19,15 +16,13 @@ TEST(CalculatorTest, SimplePair) {
 }
 
 TEST(CalculatorTest, MultipleDebtorsAndCreditors) {
-  // a owes 5, c owes 3; b should receive 8
-  std::unordered_map<std::string, double> balances{
+  const std::unordered_map<std::string, double> balances{
           {"a", -5.0},
           {"b", 8.0},
           {"c", -3.0}
   };
 
-  auto debts = Calculator::settle(balances);
-  // order may vary, so just check sums
+  const auto debts = Calculator::settle(balances);
   double total = 0;
   for (auto& d : debts) {
     total += d.amount;
@@ -41,7 +36,7 @@ TEST(CalculatorTest, MultipleDebtorsAndCreditors) {
 }
 
 TEST(CalculatorTest, NoDebtsWhenBalanced) {
-  std::unordered_map<std::string, double> balances{
+  const std::unordered_map<std::string, double> balances{
           {"x", 2.0},
           {"y", -2.0},
           {"z", 0.0}
