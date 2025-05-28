@@ -1,4 +1,3 @@
-// tests/test_calculator.cpp
 #include <gtest/gtest.h>
 #include "../include/Obeder/Calculator.h"
 #include <cstdio>
