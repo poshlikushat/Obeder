@@ -7,16 +7,14 @@
 #include <fstream>
 #include <sstream>
 
-std::vector<Lunch> Parser::parse(const std::string& filename) {
-  std::ifstream file(filename);
-  if (!file.is_open()) throw std::runtime_error("Failed to open file: " + filename);
+std::vector<Lunch> Parser::parse(std::istream& in) {
   std::vector<Lunch> lunches;
   std::string line;
 
-  while (std::getline(file, line)) {
+  while (std::getline(in, line)) {
     if (line.empty()) continue;
+    std::istringstream iss(line);
 
-    std::istringstream iss(line);  // Читает данные не из файла, а из строки в памяти
     Lunch lunch;
     if (!(iss >> lunch.ts >> lunch.user_id >> lunch.amount)) {
       throw std::runtime_error("Failed to parse line: " + line);

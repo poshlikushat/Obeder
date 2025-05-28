@@ -14,7 +14,7 @@ struct Lunch {
 
 class Parser final {
 public:
-  static std::vector<Lunch> parse(const std::string& filename);
+  static std::vector<Lunch> parse(std::istream& in);
 
   Parser() = delete;
 };
