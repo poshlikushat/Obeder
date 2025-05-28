@@ -9,11 +9,6 @@ void Ledger::addRecord(const Lunch& lunch) {
   records.push_back(lunch);
 }
 
-void Ledger::loadFromFile(const std::string& filename) {
-  const auto lunches = Parser::parse(filename);
-  records.insert(records.end(), lunches.begin(), lunches.end());
-}
-
 std::unordered_map<std::string, double> Ledger::getBalance(const std::time_t start, const std::time_t end) const {
   std::unordered_map<std::string, double> balance;
   balance.reserve(records.size());

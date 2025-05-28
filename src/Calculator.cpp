@@ -6,17 +6,7 @@
 #include "../include/Obeder/Ledger.h"
 #include <map>
 
-std::vector<Debt> Calculator::settle(const std::unordered_map<std::string, double>& balances) {
-
-  std::multimap<double, std::string> bal_mp;
-  for (auto& [user, bal] : balances) {
-    if (bal != 0)
-      bal_mp.emplace(bal, user);
-  }
-
-  std::vector<Debt> result;
-  result.reserve(balances.size());
-
+void Calculator::calculate(std::vector<Debt>& result, std::multimap<double, std::string> bal_mp) {
   while (!bal_mp.empty()) {
 
     const auto low = bal_mp.begin();
@@ -40,5 +30,20 @@ std::vector<Debt> Calculator::settle(const std::unordered_map<std::string, doubl
     if (newLow  != 0) bal_mp.emplace(newLow,  debtor);
     if (newHigh != 0) bal_mp.emplace(newHigh, creditor);
   }
+}
+
+
+std::vector<Debt> Calculator::settle(const std::unordered_map<std::string, double>& balances) {
+
+  std::multimap<double, std::string> bal_mp;
+  for (auto& [user, bal] : balances) {
+    if (bal != 0)
+      bal_mp.emplace(bal, user);
+  }
+
+  std::vector<Debt> result;
+  result.reserve(balances.size());
+
+  calculate(result, bal_mp);
   return result;
 }

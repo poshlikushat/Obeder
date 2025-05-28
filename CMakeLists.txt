@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.30)
 project(Obeder)
 
 set(CMAKE_CXX_STANDARD 20)
+option(BUILD_TESTING "Enable tests" ON)
 include_directories(${CMAKE_SOURCE_DIR}/include)
 
 add_library(ObederLib STATIC

@@ -4,6 +4,7 @@
 
 #ifndef CALCULATOR_H
 #define CALCULATOR_H
+#include <map>
 #include <vector>
 #include <string>
 #include <unordered_map>
@@ -15,6 +16,7 @@ struct Debt {
 };
 
 class Calculator final {
+  static void calculate(std::vector<Debt>& result, std::multimap<double, std::string> bal_mp);
 public:
   static std::vector<Debt> settle(const std::unordered_map<std::string, double>& balances);
 };
